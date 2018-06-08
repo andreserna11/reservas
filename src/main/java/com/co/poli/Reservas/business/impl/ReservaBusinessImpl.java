@@ -68,6 +68,22 @@ public class ReservaBusinessImpl implements IReservaBusiness {
     @Override
     public Double valorHabitacionesPriOcu() {
 
-        return 0D;
+        Double valor = 0D;
+        List<Habitacion> listadoHabitaciones = HabitacionData.getListado();
+        List<Reserva> listadoReservas = ReservaData.getListado();
+
+        for (Habitacion habitacion : listadoHabitaciones) {
+            Double camasOcupadas = 0D;
+            for (Reserva reserva : listadoReservas) {
+                if (reserva.getHabitacion().equals(habitacion.getIdhabitacion())) {
+                    camasOcupadas += reserva.getNumcamas();
+                }
+            }
+            if (habitacion.getTipohabitacion().equals("Privada")) {
+                valor += (habitacion.getNucamas()- camasOcupadas) * 50000D;
+            }
+        }
+        return valor;
     }
+
 }
