@@ -27,8 +27,13 @@ public class ReservaController {
         return reservaBusiness.crearReserva(reserva);
     }
 
-    @GetMapping("valorCamas")
+    @GetMapping("valorHabitaciones")
     public Double valorHabitacionesPriOcu(HttpServletResponse hsr) {
         return reservaBusiness.valorHabitacionesPriOcu();
+    }
+    
+    @GetMapping("habitacionMasCostosa")
+    public Double habitacionMasCostosa(HttpServletResponse hsr) {
+        return reservaBusiness.habitacionMasCostosa();
     }
 }

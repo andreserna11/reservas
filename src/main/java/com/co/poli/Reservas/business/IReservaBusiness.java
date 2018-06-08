@@ -19,4 +19,6 @@ public interface IReservaBusiness {
     public String crearReserva(Reserva reserva);
     
     public Double valorHabitacionesPriOcu();
+    
+    public Double habitacionMasCostosa();
 }
