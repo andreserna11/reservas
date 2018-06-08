@@ -8,6 +8,7 @@ package com.co.poli.Reservas.business.impl;
 import com.co.poli.Reservas.business.IReservaBusiness;
 import com.co.poli.Reservas.dao.IHabitacionDao;
 import com.co.poli.Reservas.dao.IReservaDao;
+import com.co.poli.Reservas.data.HabitacionData;
 import com.co.poli.Reservas.data.ReservaData;
 import com.co.poli.Reservas.model.Habitacion;
 import com.co.poli.Reservas.model.Reserva;
@@ -66,10 +67,22 @@ public class ReservaBusinessImpl implements IReservaBusiness {
 
     @Override
     public Double valorHabitacionesPriOcu() {
-        
-        
-        return 0D;
-    }
 
-    
+        Double cantidad = 0D;
+        List<Habitacion> listadoHabitaciones = HabitacionData.getListado();
+        List<Reserva> listadoReservas = ReservaData.getListado();
+
+        for (Habitacion habitacion : listadoHabitaciones) {
+            Double camasOcupadas = 0D;
+            for (Reserva reserva : listadoReservas) {
+                if (reserva.getHabitacion().equals(habitacion.getIdhabitacion())) {
+                    camasOcupadas += reserva.getNumcamas();
+                }
+            }
+            if (camasOcupadas > 1) {
+                cantidad++;
+            }
+        }
+        return cantidad;       
+    }
 }
